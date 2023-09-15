@@ -1,0 +1,75 @@
+// We recommend scoping your styles with a unique classname
+// that won't affect other styles on the page
+// alternatively, you can use CSS modules
+.sb-example-root {
+  width: 100%;
+  height: 100%;
+  background-color: #27374d;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 20px;
+  gap: 12px;
+
+  h1, h2, h3, h4, h5, p, pre {
+    color: white;
+  }
+
+  p {
+    margin: 0px;
+  }
+
+  input {
+    font: inherit;
+    padding: 10px 24px;
+    border-radius: 8px;
+    color: black;
+  }
+
+  button {
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    line-height: 20px;
+    border-radius: 8px;
+    padding: 14px 24px;
+    border: none;
+    transition:
+      box-shadow 0.2s ease 0s,
+      -ms-transform 0.1s ease 0s,
+      -webkit-transform 0.1s ease 0s,
+      transform 0.1s ease 0s;
+    background: linear-gradient(
+      to right,
+      rgb(230, 30, 77) 0%,
+      rgb(227, 28, 95) 50%,
+      rgb(215, 4, 102) 100%
+    );
+    color: #fff;
+  }
+
+  button:active {
+    background: linear-gradient(
+      to right,
+      rgb(198, 20, 61) 0%,
+      rgb(188, 8, 68) 50%,
+      rgb(208, 0, 97) 100%
+    );
+  }
+
+  .fill {
+    flex-grow: 1;
+  }
+
+  .horizontal-layout {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .is-complete {
+    text-decoration: line-through;
+  }
+}
