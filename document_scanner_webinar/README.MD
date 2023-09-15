@@ -45,4 +45,4 @@ Check out the [full webinar where we build this component live.](https://www.sup
 License
 =======
 
-Code released under the MIT license. See [../Licence.md](licence.md) for further details.
+Code released under the MIT license.
