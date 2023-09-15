@@ -1,0 +1,7 @@
+node_modules/
+dist/
+apis/
+.superblocks/
+.vscode/
+page.yaml
+application.yaml
