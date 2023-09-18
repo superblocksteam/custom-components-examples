@@ -1,6 +1,4 @@
-# Custom Components Examples
-
-![Video of Custom Components](screenshots/customComponents.gif)
+# Custom Components Examplesa
 
 Repository of example custom components built and maintained by the Superblocks team
 
