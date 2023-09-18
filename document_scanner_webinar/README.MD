@@ -6,4 +6,4 @@ This is a Custom Component for Superblocks, that uses [React-Webcam](https://git
 Learn More
 =======
 
-Check out the [full webinar where we build this component live.](https://www.superblocks.com/webinar/custom-components/).
+Check out the [full webinar where we build this component live](https://www.superblocks.com/webinar/custom-components/).
