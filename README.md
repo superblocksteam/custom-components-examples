@@ -1,4 +1,4 @@
-# custom-components-examples
+# Custom Components Examples
 
 ![Video of Custom Components](screenshots/customComponents.gif)
 
