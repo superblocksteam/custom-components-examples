@@ -1,5 +1,7 @@
 # custom-components-examples
 
+![Video of Custom Components](screenshots/customComponents.gif)
+
 Repository of example custom components built and maintained by the Superblocks team
 
 In order to match the development pattern for custom components, each example component or set of components is uploaded as part of an app directory.
@@ -17,5 +19,3 @@ This project is open to contributions and pull requests. The code in this repo i
 Check out the full feature write up on the [Superblocks Blog.](https://www.superblocks.com/blog/introducing-custom-components-in-superblocks).
 
 Learn more about getting started with [Custom Components.](https://docs.superblocks.com/applications/custom-components)
-
-
