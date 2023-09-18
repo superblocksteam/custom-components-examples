@@ -1,5 +1,7 @@
 # To-Do List Example Component
 
+![Screenshot of To Do List component](../screenshots/toDoList.png)
+
 This directory contains the example component provided by the Superblocks CLI.
 
 You can initialize this component directly in the CLI by running `superblocks components create --example`.
