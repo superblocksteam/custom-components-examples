@@ -5,7 +5,7 @@ import {
   useSuperblocksWidgetSize,
 } from "@superblocksteam/custom-components";
 import { type Props, type EventTriggers } from "./types";
-import { Button, Select, Empty } from "antd";
+import { Button, Select, Empty, Col } from "antd";
 import {
   VideoCameraAddOutlined,
   StopOutlined,
@@ -13,6 +13,7 @@ import {
 } from "@ant-design/icons";
 import Confetti from "react-confetti";
 import ReactDOM from "react-dom";
+import Column from "antd/es/table/Column";
 const { Option } = Select;
 
 const VIDEO_HEIGHT_OFFSET = 60;
@@ -27,7 +28,7 @@ export default function Component({ rainConfettiOnCapture }: Props) {
   const handleDevices = useCallback(
     (mediaDevices: MediaDeviceInfo[]) =>
       setDevices(mediaDevices.filter(({ kind }) => kind === "videoinput")),
-    [setDevices],
+    [setDevices]
   );
 
   // call useSuperblocksContext() to get the updateProperties method and event triggers
@@ -50,7 +51,10 @@ export default function Component({ rainConfettiOnCapture }: Props) {
     height: videoHeight,
   };
 
-  const startCam = () => setIsShowVideo(true);
+  const startCam = () => {
+    console.log(videoConstraints);
+    setIsShowVideo(true);
+  };
 
   const stopCam = () => {
     // Add more type safety here, if applicable.
@@ -113,46 +117,50 @@ export default function Component({ rainConfettiOnCapture }: Props) {
             width={window.innerWidth}
             height={window.innerHeight}
           />,
-          document.body,
+          document.body
         )}
-      <div style={{ flex: 1, minHeight: videoHeight }}>
-        <div className="camView">
+      <div
+        className="camera-container"
+        style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+        <div style={{ minHeight: videoHeight }}>
+          <div className="camView">
+            {isShowVideo && (
+              <Webcam
+                screenshotFormat="image/jpeg"
+                audio={false}
+                ref={videoElement}
+                videoConstraints={videoConstraints}
+              />
+            )}
+            {!isShowVideo && (
+              <Empty imageStyle={videoConstraints} description={false} />
+            )}
+          </div>
+        </div>
+        <div style={{}}>
           {isShowVideo && (
-            <Webcam
-              screenshotFormat="image/jpeg"
-              audio={false}
-              ref={videoElement}
-              videoConstraints={videoConstraints}
-            />
+            <>
+              <Button onClick={stopCam} icon={<StopOutlined />}>
+                Stop Video
+              </Button>
+              <Button onClick={handleCapture} icon={<VideoCameraAddOutlined />}>
+                Take Screenshot
+              </Button>
+            </>
           )}
           {!isShowVideo && (
-            <Empty imageStyle={videoConstraints} description={false} />
+            <Button onClick={startCam} icon={<CameraOutlined />}>
+              Start Video
+            </Button>
+          )}
+          {devices.length > 1 && (
+            <Select id="deviceList" defaultActiveFirstOption={true}>
+              {devices.map((device, key) => (
+                <Option key={device.deviceId}>{device.label}</Option>
+              ))}
+            </Select>
           )}
         </div>
-      </div>
-      <div style={{ flexShrink: 0 }}>
-        {isShowVideo && (
-          <>
-            <Button onClick={stopCam} icon={<StopOutlined />}>
-              Stop Video
-            </Button>
-            <Button onClick={handleCapture} icon={<VideoCameraAddOutlined />}>
-              Take Screenshot
-            </Button>
-          </>
-        )}
-        {!isShowVideo && (
-          <Button onClick={startCam} icon={<CameraOutlined />}>
-            Start Video
-          </Button>
-        )}
-        {devices.length > 1 && (
-          <Select id="deviceList" defaultActiveFirstOption={true}>
-            {devices.map((device, key) => (
-              <Option key={device.deviceId}>{device.label}</Option>
-            ))}
-          </Select>
-        )}
       </div>
     </div>
   );
