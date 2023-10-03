@@ -47,14 +47,10 @@ export default function Component({ rainConfettiOnCapture }: Props) {
   const videoHeight = heightPx - VIDEO_HEIGHT_OFFSET;
 
   const videoConstraints = {
-    width: widthPx,
     height: videoHeight,
   };
 
-  const startCam = () => {
-    console.log(videoConstraints);
-    setIsShowVideo(true);
-  };
+  const startCam = () => setIsShowVideo(true);
 
   const stopCam = () => {
     // Add more type safety here, if applicable.
@@ -122,22 +118,27 @@ export default function Component({ rainConfettiOnCapture }: Props) {
       <div
         className="camera-container"
         style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-        <div style={{ minHeight: videoHeight }}>
-          <div className="camView">
+        <div style={{ height: videoHeight, width: widthPx }}>
+          <div className="camView" style={{ height: "100%", width: "100%" }}>
             {isShowVideo && (
               <Webcam
                 screenshotFormat="image/jpeg"
                 audio={false}
                 ref={videoElement}
                 videoConstraints={videoConstraints}
+                width={widthPx}
+                height={videoHeight}
               />
             )}
             {!isShowVideo && (
-              <Empty imageStyle={videoConstraints} description={false} />
+              <Empty
+                imageStyle={{ width: widthPx, height: videoHeight }}
+                description={false}
+              />
             )}
           </div>
         </div>
-        <div style={{}}>
+        <div style={{ display: "flex", gap: "3px" }}>
           {isShowVideo && (
             <>
               <Button onClick={stopCam} icon={<StopOutlined />}>
