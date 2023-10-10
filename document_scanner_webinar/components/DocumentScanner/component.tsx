@@ -13,7 +13,6 @@ import {
 } from "@ant-design/icons";
 import Confetti from "react-confetti";
 import ReactDOM from "react-dom";
-import Column from "antd/es/table/Column";
 const { Option } = Select;
 
 const VIDEO_HEIGHT_OFFSET = 60;
@@ -21,6 +20,8 @@ const VIDEO_HEIGHT_OFFSET = 60;
 export default function Component({ rainConfettiOnCapture }: Props) {
   const [isShowVideo, setIsShowVideo] = useState<boolean>(false);
   const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
+  const [activeDevice, setActiveDevice] = useState<string>("");
+
   const videoElement = useRef<Webcam | null>(null);
 
   const { widthPx, heightPx } = useSuperblocksWidgetSize();
@@ -28,7 +29,7 @@ export default function Component({ rainConfettiOnCapture }: Props) {
   const handleDevices = useCallback(
     (mediaDevices: MediaDeviceInfo[]) =>
       setDevices(mediaDevices.filter(({ kind }) => kind === "videoinput")),
-    [setDevices]
+    [setDevices],
   );
 
   // call useSuperblocksContext() to get the updateProperties method and event triggers
@@ -48,6 +49,8 @@ export default function Component({ rainConfettiOnCapture }: Props) {
 
   const videoConstraints = {
     height: videoHeight,
+    facingMode: "user",
+    deviceId: activeDevice,
   };
 
   const startCam = () => setIsShowVideo(true);
@@ -103,6 +106,11 @@ export default function Component({ rainConfettiOnCapture }: Props) {
     handleConfettiShow();
   };
 
+  const handleDeviceChange = (value: { value: string; label: string }) => {
+    console.log(value);
+    setActiveDevice(value);
+  };
+
   return (
     <div>
       {showConfetti &&
@@ -113,11 +121,12 @@ export default function Component({ rainConfettiOnCapture }: Props) {
             width={window.innerWidth}
             height={window.innerHeight}
           />,
-          document.body
+          document.body,
         )}
       <div
         className="camera-container"
-        style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+        style={{ display: "flex", flexDirection: "column", flex: 1 }}
+      >
         <div style={{ height: videoHeight, width: widthPx }}>
           <div className="camView" style={{ height: "100%", width: "100%" }}>
             {isShowVideo && (
@@ -155,9 +164,13 @@ export default function Component({ rainConfettiOnCapture }: Props) {
             </Button>
           )}
           {devices.length > 1 && (
-            <Select id="deviceList" defaultActiveFirstOption={true}>
+            <Select
+              id="deviceList"
+              defaultActiveFirstOption={true}
+              onChange={handleDeviceChange}
+            >
               {devices.map((device, key) => (
-                <Option key={device.deviceId}>{device.label}</Option>
+                <Option value={device.deviceId}>{device.label}</Option>
               ))}
             </Select>
           )}
